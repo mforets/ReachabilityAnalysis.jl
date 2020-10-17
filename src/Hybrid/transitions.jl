@@ -209,6 +209,7 @@ function apply(tr::DiscreteTransition{<:IdentityMap, <:ZeroSet, GT, IT⁻, IT⁺
     return !isempty(out) ? UnionSetArray(out) : EmptySet(dim(X))
 end
 
+
 # -------------------------------------------
 # Cases where the reset map is RX ⊕ W
 # -------------------------------------------
@@ -279,6 +280,72 @@ function apply(tr::DiscreteTransition{<:IdentityMap, <:ZeroSet, GT, IT⁻, IT⁺
     out = apply(tr, X, HRepIntersection())
     return overapproximate(out, Hyperrectangle)
 end
+
+# all sets are polyhedral the reach-set is a set union
+# each successor in the set union X is computed using HRep, then we overapproximate
+# with a box
+function apply(tr::DiscreteTransition{RT, <:ZeroSet, GT, IT⁻, IT⁺},
+               X::UnionSetArray{N},
+               method::BoxIntersection) where {N, RT,
+                                                GT<:AbstractPolyhedron{N},
+                                                IT⁻<:AbstractPolyhedron{N},
+                                                IT⁺<:AbstractPolyhedron{N}}
+    out = Vector{HPolytope{N, Vector{N}}}()
+    for Xi in X.array
+        # compute Yi := X ∩ G ∩ I⁻ exactly
+        success, clist = _intersection(Xi, tr.G, tr.I⁻, HRepIntersection())
+        !success && return EmptySet(dim(X))
+        Yi = HPolytope(clist)
+
+        # compute Ki := R * Yi exactly
+        Ki = linear_map(tr.R, Yi)
+
+        # compute Qi := Ki ∩ I⁺ exactly
+        success, clist = _intersection(Ki, tr.I⁺, HRepIntersection())
+        !success && return EmptySet(dim(X))
+
+        # store the polytope in constraint representation
+        Qi = HPolytope(clist)
+        push!(out, Qi)
+    end
+
+    # overapproximate the result with a hyperrectangle
+    return overapproximate(UnionSetArray(out), Hyperrectangle)
+end
+
+# all sets are polyhedral the reach-set is a set union
+# each successor in the set union X is computed overapproximating with a
+# hyperrectangle
+#=
+function apply(tr::DiscreteTransition{RT, <:ZeroSet, GT, IT⁻, IT⁺},
+               X::UnionSetArray{N},
+               method::BoxIntersection) where {N, RT,
+                                                GT<:AbstractPolyhedron{N},
+                                                IT⁻<:AbstractPolyhedron{N},
+                                                IT⁺<:AbstractPolyhedron{N}}
+    n = dim(X)
+    boxdirs = BoxDirections(n)
+    #out = Vector{Hyperrectangle{N, Vector{N}, Vector{N}}}()
+    out = Vector{HPolytope{N, Vector{N}}}()
+    for Xi in X.array
+        # compute Yi := X ∩ G ∩ I⁻ using box directions
+        Yi = _intersection(Xi, tr.G, tr.I⁻, method)
+
+        # compute Ki := R * Yi using box directions
+        Ki = box_approximation(tr.R * Yi)
+        isempty(Ki) && continue
+
+        # compute Qi := Ki ∩ I⁺ using box directions
+        Qi = _intersection(Ki, tr.I⁺, method)
+
+        # store the hyperrectangle
+        push!(out, Qi)
+    end
+
+    # overapproximate the result with a hyperrectangle
+    return overapproximate(UnionSetArray(out), Hyperrectangle)
+end
+=#
 
 #=
 function _apply(tr::DiscreteTransition{<:IdentityMap, <:ZeroSet, GT, IT⁻, IT⁺},
@@ -389,5 +456,24 @@ function apply(tr::DiscreteTransition{<:IdentityMap, <:ZeroSet, GT, IT⁻, IT⁺
 
     # compute the intersection K := [X ∩ Y]_dirs using the template
     K = _intersection(X, HPolyhedron(Y), method)
+    return K
+end
+
+# all sets are polyhedral the reach-set is a set union
+# each successor in the set union X is computed using the template hull,
+# then we overapproximate the union again using the template hull
+function apply(tr::DiscreteTransition{RT, WT, GT, IT⁻, IT⁺},
+               X::UnionSetArray{N},
+               method::TemplateHullIntersection{N, VN, TN}) where {N, RT<:AbstractMatrix{N}, WT<:LazySet{N},
+                                                        GT<:AbstractPolyhedron{N},
+                                                        IT⁻<:AbstractPolyhedron{N},
+                                                        IT⁺<:AbstractPolyhedron{N}, VN, TN}
+
+    # compute Y := X ∩ G ∩ I⁻ using the template
+    Y = _intersection(X, tr.G, tr.I⁻, method)
+
+    # compute K := (R*Y⊕W) ∩ I⁺ using the template
+    K = _intersection(tr.R * Y ⊕ tr.W, tr.I⁺, method)
+
     return K
 end
