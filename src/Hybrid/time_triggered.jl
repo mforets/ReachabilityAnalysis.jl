@@ -83,7 +83,7 @@ function solve(ivp::IVP{<:HACLD1}, args...; kwargs...)
     sol = post(alg, prob, no_tspan; NSTEPS=NHIGH)
 
     if max_jumps == 0
-        return ReachSolution(Flowpipe(sol[1:NLOW-1]), alg)
+        return ReachSolution(Flowpipe(sol), alg)
     end
 
     # preallocate output vector of flowpipes
@@ -111,7 +111,7 @@ function solve(ivp::IVP{<:HACLD1}, args...; kwargs...)
         # solve next chunk
         sol = post(alg, prob, no_tspan; NSTEPS=NHIGH)
 
-        # store flowpipe until first intersection with the guard
+        # store flowpipe until last intersection with the guard
         aux = view(array(sol), 1:NHIGH)
 
         push!(out, ShiftedFlowpipe(Flowpipe(aux), t0))
