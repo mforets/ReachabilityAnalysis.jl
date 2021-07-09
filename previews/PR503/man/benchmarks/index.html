@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Benchmarks · ReachabilityAnalysis.jl</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/juliareach-light.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="ReachabilityAnalysis.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit">ReachabilityAnalysis.jl</span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><input class="collapse-toggle" id="menuitem-2" type="checkbox" checked/><label class="tocitem" for="menuitem-2"><span class="docs-label">Manual</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../basics/">Basics</a></li><li><a class="tocitem" href="../linear/">Linear ODEs</a></li><li><a class="tocitem" href="../nonlinear/">Nonlinear ODEs</a></li><li><a class="tocitem" href="../hybrid/">Hybrid systems</a></li><li><a class="tocitem" href="../clocked/">Clocked systems</a></li><li><a class="tocitem" href="../structure/">Exploiting structure</a></li><li><a class="tocitem" href="../parametric/">Parametric reachability</a></li><li><a class="tocitem" href="../backwards/">Backwards reachability</a></li><li class="is-active"><a class="tocitem" href>Benchmarks</a><ul class="internal"><li><a class="tocitem" href="#Scalability-evaluation"><span>Scalability evaluation</span></a></li><li><a class="tocitem" href="#Benchmark-repository"><span>Benchmark repository</span></a></li><li><a class="tocitem" href="#Repeatability-evaluations"><span>Repeatability evaluations</span></a></li></ul></li><li><a class="tocitem" href="../library/">Model library</a></li><li><a class="tocitem" href="../faq/">Frequently Asked Questions</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3" type="checkbox"/><label class="tocitem" for="menuitem-3"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_overview/">Overview</a></li><li><a class="tocitem" href="../../models/OpAmp/">Operational amplifier</a></li><li><a class="tocitem" href="../../models/SquareWaveOscillator/">Square wave oscillator</a></li><li><a class="tocitem" href="../../models/VanDerPol/">Van der Pol oscillator</a></li><li><a class="tocitem" href="../../models/DuffingOscillator/">Duffing oscillator</a></li><li><a class="tocitem" href="../../models/TransmissionLine/">Transmision line</a></li><li><a class="tocitem" href="../../models/LaubLoomis/">Laub-Loomis</a></li><li><a class="tocitem" href="../../models/Building/">Building</a></li><li><a class="tocitem" href="../../models/ProductionDestruction/">Production-Destruction</a></li><li><a class="tocitem" href="../../models/LotkaVolterra/">Lotka-Volterra</a></li><li><a class="tocitem" href="../../models/Brusselator/">Brusselator</a></li><li><a class="tocitem" href="../../models/ISS/">Structural Model</a></li><li><a class="tocitem" href="../../models/Lorenz/">Lorenz system</a></li><li><a class="tocitem" href="../../models/Platoon/">Platoon</a></li><li><a class="tocitem" href="../../models/Quadrotor/">Quadrotor</a></li><li><a class="tocitem" href="../../models/SEIR/">SEIR model</a></li><li><a class="tocitem" href="../../models/Spacecraft/">Spacecraft</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox"/><label class="tocitem" for="menuitem-4"><span class="docs-label">Algorithms</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../lib/algorithms/ASB07/">ASB07</a></li><li><a class="tocitem" href="../../lib/algorithms/BFFPSV18/">BFFPSV18</a></li><li><a class="tocitem" href="../../lib/algorithms/BOX/">BOX</a></li><li><a class="tocitem" href="../../lib/algorithms/CARLIN/">CARLIN</a></li><li><a class="tocitem" href="../../lib/algorithms/GLGM06/">GLGM06</a></li><li><a class="tocitem" href="../../lib/algorithms/INT/">INT</a></li><li><a class="tocitem" href="../../lib/algorithms/LGG09/">LGG09</a></li><li><a class="tocitem" href="../../lib/algorithms/ORBIT/">ORBIT</a></li><li><a class="tocitem" href="../../lib/algorithms/QINT/">QINT</a></li><li><a class="tocitem" href="../../lib/algorithms/TMJets/">TMJets</a></li><li><a class="tocitem" href="../../lib/algorithms/VREP/">VREP</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox"/><label class="tocitem" for="menuitem-5"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../lib/reachsets/">Reach-sets</a></li><li><a class="tocitem" href="../../lib/flowpipes/">Flowpipes</a></li><li><a class="tocitem" href="../../lib/solutions/">Solutions</a></li><li><a class="tocitem" href="../../lib/systems/">Systems</a></li><li><a class="tocitem" href="../../lib/discretize/">Discretization</a></li><li><a class="tocitem" href="../../lib/projections/">Projections</a></li><li><a class="tocitem" href="../../lib/clustering/">Clustering</a></li><li><a class="tocitem" href="../../lib/operations/">Further set operations</a></li><li><a class="tocitem" href="../../lib/distributed/">Distributed computations</a></li><li><a class="tocitem" href="../../lib/internals/">Internal functions and macros</a></li></ul></li><li><a class="tocitem" href="../../references/">References</a></li><li><a class="tocitem" href="../../about/">About</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Manual</a></li><li class="is-active"><a href>Benchmarks</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Benchmarks</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaReach/ReachabilityAnalysis.jl/blob/master/docs/src/man/benchmarks.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Benchmarks"><a class="docs-heading-anchor" href="#Benchmarks">Benchmarks</a><a id="Benchmarks-1"></a><a class="docs-heading-anchor-permalink" href="#Benchmarks" title="Permalink"></a></h1><h2 id="Scalability-evaluation"><a class="docs-heading-anchor" href="#Scalability-evaluation">Scalability evaluation</a><a id="Scalability-evaluation-1"></a><a class="docs-heading-anchor-permalink" href="#Scalability-evaluation" title="Permalink"></a></h2><p>Scalability is very important in the applicability of a tool. For illustration purposes, in this section we consider the scalability of the hybrid reachability solver, using different algorithm choices, for the filtered switched oscillator model from <a href="../../references/#[FRE11]">[FRE11]</a>. The model consists of a two-dimensional switched oscillator and a parametric number of filters which are used to <em>smooth</em> the oscilllator&#39;s state. An interesting aspect of the model is that it is scalable: the total number of continuous variables can be made arbitrarily large. Moreover, this is a challenging benchmark since several dozens of reach-sets may take each discrete jumps, hence clustering methods are indispensible.</p><p>The continuous variables <span>$x$</span> and <span>$y$</span> are used to denote the state of the oscillator, and the remaining <span>$m$</span> variables are used for the state of the filters. In this evaluation we consider that the number of filters ranges from 64 to 1024. To measure the quality of the approximations, we consider the safety property given by <span>$y(t) &lt; 0.5$</span> for all <span>$t ∈ [0, T]$</span>.</p><p>The filtered oscillator was also studied in <a href="../../references/#[BFFPS19]">[BFFPS19]</a> to test the scalability of a new scheme that exploits the sparsity of the hybrid automaton to efficiently compute flowpipe-guard intersections. Such scheme is not considered in this section.</p><p>Recall that for a system of <span>$n$</span> variables, a box overapproximation requires to compute <span>$n$</span> samples of the approximation boundary, whereas an octagon requires <span>$O(n^2)$</span> many. Hence, using an octagon template, while gives tighter results in general, may incur in much higher computational cost if <span>$n$</span> is high.</p><h3 id="Model"><a class="docs-heading-anchor" href="#Model">Model</a><a id="Model-1"></a><a class="docs-heading-anchor-permalink" href="#Model" title="Permalink"></a></h3><pre><code class="language-julia">using ReachabilityAnalysis
+
+one_loop_iteration = false
+n0 = 4
+n1 = (one_loop_iteration ? n0 + 1 : n0)
+n = n1 + 2
+z = zeros(n1)
+
+## common flow
+A = zeros(n, n)
+A[1,1], A[2,2] = -2., -1.
+A[3,1], A[3,3] = 5., -5.
+for i = 4 : n-1
+    A[i,i-1], A[i,i] = 5., -5.
+end
+
+function mode1(z)
+    b = [1.4; -0.7; z]
+    X = HPolyhedron([HalfSpace([-0.714286; -1.0; z], 0.0),  # 0.714286*x + y &gt;= 0
+                     HalfSpace([1.0; 0.0; z], 0.0)])  # x &lt;= 0
+    @system(x&#39; = Ax + b, x ∈ X)
+end
+
+function mode2(z)
+    b = [-1.4; 0.7; z]
+    X = HPolyhedron([HalfSpace([1.0; 0.0; z], 0.0),  # x &lt;= 0
+                     HalfSpace([0.714286; 1.0; z], 0.0)])  # 0.714286*x + y &lt;= 0
+    @system(x&#39; = Ax + b, x ∈ X)
+end
+
+function mode3(z)
+    b = [1.4; -0.7; z]
+    X = HPolyhedron([HalfSpace([-1.0; 0.0; z], 0.0),  # x &gt;= 0
+                     HalfSpace([-0.714286; -1.0; z], 0.0)])  # 0.714286*x + y &gt;= 0
+    @system(x&#39; = Ax + b, x ∈ X)
+end
+
+function mode4(z, one_loop_iteration)
+    b = [-1.4; 0.7; z]
+    X = HPolyhedron([HalfSpace([0.714286; 1.0; z], 0.0),  # 0.714286*x + y &lt;= 0
+                     HalfSpace([-1.0; 0.0; z], 0.0)])  # x &gt;= 0
+
+    if one_loop_iteration
+        ## k &lt;= 2 (2.1 to avoid numerical issues)
+        addconstraint!(X, HalfSpace([zeros(n-1); 1.], 2.1))
+    end
+    @system(x&#39; = Ax + b, x ∈ X)
+end
+
+
+function filtered_oscillator_hybrid(n0, one_loop_iteration)
+
+    n1 = (one_loop_iteration ? n0 + 1 : n0)
+    n = n1 + 2
+    z = zeros(n1)
+
+    ## transition graph (automaton)
+    a = LightAutomaton(4)
+    add_transition!(a, 3, 4, 1)
+    add_transition!(a, 4, 2, 2)
+    add_transition!(a, 2, 1, 3)
+    add_transition!(a, 1, 3, 4)
+
+    mode1 = mode1(z)
+    mode2 = mode2(z)
+    mode3 = mode3(z)
+    mode4 = mode4(z, one_loop_iteration)
+    m = [mode1, mode2, mode3, mode4]
+
+    ## transitions
+
+    ## transition l3 -&gt; l4
+    X_l3l4 = HPolyhedron([HalfSpace([-1.0; 0.0; z], 0.0),  # x &gt;= 0
+                          HalfSpace([-0.714286; -1.0; z], 0.0),  # 0.714286*x + y &gt;= 0
+                          HalfSpace([0.714286; 1.0; z], 0.0)])  # 0.714286*x + y &lt;= 0
+    if one_loop_iteration
+        A_trans_34 = Matrix(1.0I, n, n)
+        A_trans_34[n, n] = 2.  # k&#39; = k * 2
+        r1 = ConstrainedLinearMap(A_trans_34, X_l3l4)
+    else
+        r1 = ConstrainedIdentityMap(n, X_l3l4)
+    end
+
+    ## transition l4 -&gt; l2
+    X_l4l2 = HPolyhedron([HalfSpace([0.714286; 1.0; z], 0.0),  # 0.714286*x + y &lt;= 0
+                          HalfSpace([-1.0; 0.0; z], 0.0),  # x &gt;= 0
+                          HalfSpace([1.0; 0.0; z], 0.0)])  # x &lt;= 0
+    r2 = ConstrainedIdentityMap(n, X_l4l2)
+
+    ## transition l2 -&gt; l1
+    X_l2l1 = HPolyhedron([HalfSpace([1.0; 0.0; z], 0.0),  # x &lt;= 0
+                          HalfSpace([-0.714286; -1.0; z], 0.0),  # 0.714286*x + y &gt;= 0
+                          HalfSpace([0.714286; 1.0; z], 0.0)])  # 0.714286*x + y &lt;= 0
+    r3 = ConstrainedIdentityMap(n, X_l2l1)
+
+    ## transition l1 -&gt; l3
+    X_l1l3 = HPolyhedron([HalfSpace([-0.714286; -1.0; z], 0.0),  # 0.714286*x + y &gt;= 0
+                          HalfSpace([-1.0; 0.0; z], 0.0),  # x &gt;= 0
+                          HalfSpace([1.0; 0.0; z], 0.0)])  # x &lt;= 0
+    r4 = ConstrainedIdentityMap(n, X_l1l3)
+
+    r = [r1, r2, r3, r4]
+
+    ## switchings
+    s = [HybridSystems.AutonomousSwitching()]
+
+    return HybridSystem(a, m, r, s)
+end
+
+function fosc(X0; n0::Int=4, one_loop_iteration::Bool=false)
+    H = filtered_oscillator_hybrid(n0, one_loop_iteration)
+    return IVP(H, [(1, X0)])
+end</code></pre><pre class="documenter-example-output">fosc (generic function with 1 method)</pre><h2 id="Benchmark-repository"><a class="docs-heading-anchor" href="#Benchmark-repository">Benchmark repository</a><a id="Benchmark-repository-1"></a><a class="docs-heading-anchor-permalink" href="#Benchmark-repository" title="Permalink"></a></h2><p>The benchmark suite of JuliaReach is available at the <a href="https://github.com/JuliaReach/ReachabilityBenchmarks">ReachabilityBenchmarks</a> repository.</p><p>The repository includes:</p><ul><li>Benchmarks for all models in the <code>ReachabilityAnalysis.jl</code> test suite.</li><li>Benchmarks for models which are not part of the <code>ReachabilityAnalysis.jl</code> test suite, and are used to detect regressions (i.e. examples that accidentally run slower, due to changes in core downstream libraries such as <code>LazySets.jl</code>).</li><li>The <a href="http://slicot.org/matlab-toolboxes/model-reduction">SLICOT models</a>, from the SLICOT Model and Controller Reduction Toolbox, which reflect real world applications with dimensions ranging from several dozens to over 10.000.</li></ul><h2 id="Repeatability-evaluations"><a class="docs-heading-anchor" href="#Repeatability-evaluations">Repeatability evaluations</a><a id="Repeatability-evaluations-1"></a><a class="docs-heading-anchor-permalink" href="#Repeatability-evaluations" title="Permalink"></a></h2><p>Traditionally, re-creation of computational results in research work is a challenging task because details of the implementation are unavoidably absent in the paper. Some authors post their code and data to their websites, but there is little formal incentive to do so and no easy way to determine whether others can actually use the result. As a consequence, computational results often become non reproducible – even by the research group which originally produced them – after just a few years.</p><p>More recently, scientific conferences encourage and sometimes require that authors improve the reproducibility of their computational results by providing suitable <em>reproducibility evaluation</em> (RE) packages. Such RE are self-contained codes that can be used to run and reproduce the results from the paper in a host machine. Fortunately, the tools available for the Julia language are very convenenient to prepare and distribute RE packages. The following RE packages are available:</p><ul><li><p><a href="https://github.com/JuliaReach/ARCH2020_NLN_RE">ARCH2020 NLN RE</a> – Repeatability Evaluation package for the ARCH2020 Nonlinear Continuous and Hybrid Systems Competition.</p></li><li><p><a href="https://github.com/JuliaReach/ARCH2020_AFF_RE">ARCH2020 AFF RE</a> – Repeatability Evaluation package for the ARCH2020 Linear and Hybrid Systems Competition.</p></li><li><p><a href="https://github.com/JuliaReach/HSCC2019_RE">HSCC2019 RE</a> – Repeatability Evaluation (RE) package for the paper <em>JuliaReach: a Toolbox for Set-Based Reachability</em> published at the HSCC&#39;2019 conference.</p></li><li><p><a href="https://github.com/JuliaReach/ARCH2019_RE">ARCH2019 RE</a> – Repeatability Evaluation package for the ARCH2019 Competition.</p></li><li><p><a href="https://github.com/JuliaReach/ARCH2018_RE">ARCH2018 RE</a> – Repeatability Evaluation package for the ARCH2018 Competition.</p></li></ul><p>For installation instructions, see the <code>README</code> file in each package. We have examples using virtual machines, and also using Docker containers for RE packages. The advantage of using a Docker container is that downloading the necessary requirements (including Julia itself) is an automated process.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../backwards/">« Backwards reachability</a><a class="docs-footer-nextpage" href="../library/">Model library »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Saturday 5 June 2021 02:30">Saturday 5 June 2021</span>. Using Julia version 1.5.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

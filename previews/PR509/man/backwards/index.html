@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Backwards reachability · ReachabilityAnalysis.jl</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/juliareach-light.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="ReachabilityAnalysis.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit">ReachabilityAnalysis.jl</span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><input class="collapse-toggle" id="menuitem-2" type="checkbox" checked/><label class="tocitem" for="menuitem-2"><span class="docs-label">Manual</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../basics/">Basics</a></li><li><a class="tocitem" href="../linear/">Linear ODEs</a></li><li><a class="tocitem" href="../nonlinear/">Nonlinear ODEs</a></li><li><a class="tocitem" href="../hybrid/">Hybrid systems</a></li><li><a class="tocitem" href="../clocked/">Clocked systems</a></li><li><a class="tocitem" href="../structure/">Exploiting structure</a></li><li><a class="tocitem" href="../parametric/">Parametric reachability</a></li><li class="is-active"><a class="tocitem" href>Backwards reachability</a></li><li><a class="tocitem" href="../benchmarks/">Benchmarks</a></li><li><a class="tocitem" href="../library/">Model library</a></li><li><a class="tocitem" href="../faq/">Frequently Asked Questions</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3" type="checkbox"/><label class="tocitem" for="menuitem-3"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_overview/">Overview</a></li><li><a class="tocitem" href="../../models/OpAmp/">Operational amplifier</a></li><li><a class="tocitem" href="../../models/SquareWaveOscillator/">Square wave oscillator</a></li><li><a class="tocitem" href="../../models/VanDerPol/">Van der Pol oscillator</a></li><li><a class="tocitem" href="../../models/DuffingOscillator/">Duffing oscillator</a></li><li><a class="tocitem" href="../../models/TransmissionLine/">Transmision line</a></li><li><a class="tocitem" href="../../models/LaubLoomis/">Laub-Loomis</a></li><li><a class="tocitem" href="../../models/Building/">Building</a></li><li><a class="tocitem" href="../../models/ProductionDestruction/">Production-Destruction</a></li><li><a class="tocitem" href="../../models/LotkaVolterra/">Lotka-Volterra</a></li><li><a class="tocitem" href="../../models/Brusselator/">Brusselator</a></li><li><a class="tocitem" href="../../models/ISS/">Structural Model</a></li><li><a class="tocitem" href="../../models/Lorenz/">Lorenz system</a></li><li><a class="tocitem" href="../../models/Platoon/">Platoon</a></li><li><a class="tocitem" href="../../models/Quadrotor/">Quadrotor</a></li><li><a class="tocitem" href="../../models/SEIR/">SEIR model</a></li><li><a class="tocitem" href="../../models/Spacecraft/">Spacecraft</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox"/><label class="tocitem" for="menuitem-4"><span class="docs-label">Algorithms</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../lib/algorithms/ASB07/">ASB07</a></li><li><a class="tocitem" href="../../lib/algorithms/BFFPSV18/">BFFPSV18</a></li><li><a class="tocitem" href="../../lib/algorithms/BOX/">BOX</a></li><li><a class="tocitem" href="../../lib/algorithms/CARLIN/">CARLIN</a></li><li><a class="tocitem" href="../../lib/algorithms/GLGM06/">GLGM06</a></li><li><a class="tocitem" href="../../lib/algorithms/INT/">INT</a></li><li><a class="tocitem" href="../../lib/algorithms/LGG09/">LGG09</a></li><li><a class="tocitem" href="../../lib/algorithms/ORBIT/">ORBIT</a></li><li><a class="tocitem" href="../../lib/algorithms/QINT/">QINT</a></li><li><a class="tocitem" href="../../lib/algorithms/TMJets/">TMJets</a></li><li><a class="tocitem" href="../../lib/algorithms/VREP/">VREP</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox"/><label class="tocitem" for="menuitem-5"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../lib/reachsets/">Reach-sets</a></li><li><a class="tocitem" href="../../lib/flowpipes/">Flowpipes</a></li><li><a class="tocitem" href="../../lib/solutions/">Solutions</a></li><li><a class="tocitem" href="../../lib/systems/">Systems</a></li><li><a class="tocitem" href="../../lib/discretize/">Discretization</a></li><li><a class="tocitem" href="../../lib/projections/">Projections</a></li><li><a class="tocitem" href="../../lib/clustering/">Clustering</a></li><li><a class="tocitem" href="../../lib/operations/">Further set operations</a></li><li><a class="tocitem" href="../../lib/distributed/">Distributed computations</a></li><li><a class="tocitem" href="../../lib/internals/">Internal functions and macros</a></li></ul></li><li><a class="tocitem" href="../../references/">References</a></li><li><a class="tocitem" href="../../about/">About</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Manual</a></li><li class="is-active"><a href>Backwards reachability</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Backwards reachability</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaReach/ReachabilityAnalysis.jl/blob/master/docs/src/man/backwards.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Backwards-reachability"><a class="docs-heading-anchor" href="#Backwards-reachability">Backwards reachability</a><a id="Backwards-reachability-1"></a><a class="docs-heading-anchor-permalink" href="#Backwards-reachability" title="Permalink"></a></h1><pre><code class="language-julia">using ReachabilityAnalysis, Plots
+
+@taylorize function rotating!(du, u, p, t)
+    du[1] = u[2]
+    du[2] = -u[1]
+end
+
+# A = [0. 1.0; -1 0]
+# prob = @ivp(x&#39; = Ax, x(0) ∈ BallInf(ones(2), 0.5))
+prob = @ivp(x&#39; = rotating!(x), dim: 2, x(0) ∈ BallInf(ones(2), 0.5))
+
+sol_forward = solve(prob, tspan=(0.0, 5.0));
+sol_backward = solve(prob, tspan=(5.0, 0.0));
+
+solz_forward = overapproximate(sol_forward, Zonotope)
+solz_backward = overapproximate(sol_backward, Zonotope);</code></pre><pre class="documenter-example-output">ReachabilityAnalysis.ReachSolution{Flowpipe{Float64,ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}},Array{ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}},1}},TMJets21b{Float64,ZonotopeEnclosure}}(Flowpipe{Float64,ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}},Array{ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}},1}}(ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}[ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.9330348099120864, 1.0590280427299636], 
+  [1, 1]  =  0.498016
+  [2, 1]  =  0.0314983
+  [1, 2]  =  -0.0314983
+  [2, 2]  =  0.498016
+  [1, 3]  =  0.100448
+  [2, 4]  =  0.100448), Interval(4.874006767182156, 5.0)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.7937797123799742, 1.1671566372330398], 
+  [1, 1]  =  0.490234
+  [2, 1]  =  0.0933442
+  [1, 2]  =  -0.0933442
+  [2, 2]  =  0.490234
+  [1, 3]  =  0.109433
+  [2, 4]  =  0.0948169), Interval(4.750001037383301, 4.874006767182156)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.6442922560546908, 1.2559499979438455], 
+  [1, 1]  =  0.475061
+  [2, 1]  =  0.152914
+  [1, 2]  =  -0.152914
+  [2, 2]  =  0.475061
+  [1, 3]  =  0.116755
+  [2, 4]  =  0.0883003), Interval(4.627483643632559, 4.750001037383302)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.4867203222299168, 1.3250505921418925], 
+  [1, 1]  =  0.452943
+  [2, 1]  =  0.209583
+  [1, 2]  =  -0.209583
+  [2, 2]  =  0.452943
+  [1, 3]  =  0.122442
+  [2, 4]  =  0.0809329), Interval(4.506063504058117, 4.627483643632559)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.3231863771338648, 1.3741539704875616], 
+  [1, 1]  =  0.424335
+  [2, 1]  =  0.262742
+  [1, 2]  =  -0.262742
+  [2, 2]  =  0.424335
+  [1, 3]  =  0.126512
+  [2, 4]  =  0.0727644), Interval(4.385415959101218, 4.506063504058118)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.15579853434444813, 1.403044488625227], 
+  [1, 1]  =  0.389711
+  [2, 1]  =  0.311811
+  [1, 2]  =  -0.311811
+  [2, 2]  =  0.389711
+  [1, 3]  =  0.128975
+  [2, 4]  =  0.0638524), Interval(4.265257423148194, 4.385415959101219)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([-0.013344225355393168, 1.4116147815388524], 
+  [1, 1]  =  0.349568
+  [2, 1]  =  0.35624
+  [1, 2]  =  -0.35624
+  [2, 2]  =  0.349568
+  [1, 3]  =  0.129838
+  [2, 4]  =  0.0542588), Interval(4.145328285573616, 4.265257423148195)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([-0.18214998299858937, 1.399876231285564], 
+  [1, 1]  =  0.304432
+  [2, 1]  =  0.395507
+  [1, 2]  =  -0.395507
+  [2, 2]  =  0.304432
+  [1, 3]  =  0.129809
+  [2, 4]  =  0.0557891), Interval(4.025379995659866, 4.145328285573617)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([-0.34853329250207415, 1.367963706091382], 
+  [1, 1]  =  0.254858
+  [2, 1]  =  0.429124
+  [1, 2]  =  -0.429124
+  [2, 2]  =  0.254858
+  [1, 3]  =  0.128703
+  [2, 4]  =  0.0652607), Interval(3.9051639400675855, 4.025379995659867)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([-0.5104148353349172, 1.3161359194013493], 
+  [1, 1]  =  0.20143
+  [2, 1]  =  0.456638
+  [1, 2]  =  -0.456638
+  [2, 2]  =  0.20143
+  [1, 3]  =  0.12601
+  [2, 4]  =  0.074026), Interval(3.784420360692098, 3.905163940067586))  …  ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([-0.12082848903234791, -1.4064905415201432], 
+  [1, 1]  =  -0.38183
+  [2, 1]  =  -0.321416
+  [1, 2]  =  0.321416
+  [2, 2]  =  -0.38183
+  [1, 3]  =  0.129285
+  [2, 4]  =  0.0619186), Interval(1.098805931942353, 1.2188961554679636)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.04841604175688182, -1.4108480378694175], 
+  [1, 1]  =  -0.340608
+  [2, 1]  =  -0.364816
+  [1, 2]  =  0.364816
+  [2, 2]  =  -0.340608
+  [1, 3]  =  0.129817
+  [2, 4]  =  0.0521917), Interval(0.978893082555358, 1.098805931942353)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.21689095972015626, -1.3949144198780106], 
+  [1, 1]  =  -0.294506
+  [2, 1]  =  -0.402951
+  [1, 2]  =  0.402951
+  [2, 2]  =  -0.294506
+  [1, 3]  =  0.12971
+  [2, 4]  =  0.0578066), Interval(0.8589099316290685, 0.9788930825553581)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.3825121293813257, -1.3588503212839633], 
+  [1, 1]  =  -0.244085
+  [2, 1]  =  -0.435341
+  [1, 2]  =  0.435341
+  [2, 2]  =  -0.244085
+  [1, 3]  =  0.128275
+  [2, 4]  =  0.0671368), Interval(0.7386064953756879, 0.8589099316290685)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.5432013963971417, -1.3029397795608126], 
+  [1, 1]  =  -0.189935
+  [2, 1]  =  -0.461535
+  [1, 2]  =  0.461535
+  [2, 2]  =  -0.189935
+  [1, 3]  =  0.125254
+  [2, 4]  =  0.0757484), Interval(0.617719201115849, 0.738606495375688)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.6968849602126272, -1.227585383533076], 
+  [1, 1]  =  -0.132675
+  [2, 1]  =  -0.481118
+  [1, 2]  =  0.481118
+  [2, 2]  =  -0.132675
+  [1, 3]  =  0.120651
+  [2, 4]  =  0.0835851), Interval(0.4959575132930827, 0.617719201115849)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.8414890283819669, -1.1332977531193076], 
+  [1, 1]  =  -0.0729522
+  [2, 1]  =  -0.493697
+  [1, 2]  =  0.493697
+  [2, 2]  =  -0.0729522
+  [1, 3]  =  0.114468
+  [2, 4]  =  0.0905963), Interval(0.37298595345399527, 0.4959575132930827)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([0.9749303763655213, -1.0206760988858086], 
+  [1, 1]  =  -0.0114364
+  [2, 1]  =  -0.498902
+  [1, 2]  =  0.498902
+  [2, 2]  =  -0.0114364
+  [1, 3]  =  0.106703
+  [2, 4]  =  0.0967413), Interval(0.2483971870034911, 0.37298595345399527)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([1.0945115926884252, -0.891191967243839], 
+  [1, 1]  =  0.0508299
+  [2, 1]  =  -0.496426
+  [1, 2]  =  0.496426
+  [2, 2]  =  0.0508299
+  [1, 3]  =  0.0988021
+  [2, 4]  =  0.103407), Interval(0.1230809585330935, 0.2483971870034911)), ReachSet{Float64,Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}}(Zonotope{Float64,Array{Float64,1},SparseArrays.SparseMatrixCSC{Float64,Int64}}([1.19655756329521, -0.7488018581539672], 
+  [1, 1]  =  0.111939
+  [2, 1]  =  -0.48634
+  [1, 2]  =  0.48634
+  [2, 2]  =  0.111939
+  [1, 3]  =  0.0925589
+  [2, 4]  =  0.111478), Interval(-0.0, 0.1230809585330935))], Dict{Symbol,Any}(:xv =&gt; IntervalBox{2,Float64}[IntervalBox(Interval(0.5, 1.5), 2), IntervalBox(Interval(0.30307300321521347, 1.5629966166089224), Interval(0.42906623603312366, 1.6889898494268327)), IntervalBox(Interval(0.10076809211505636, 1.4867913326448534), Interval(0.4887614316422885, 1.8455518428238098)), IntervalBox(Interval(-0.10043735669822661, 1.389021868807572), Interval(0.5396747278585122, 1.972225268029193)), IntervalBox(Interval(-0.29824707757113267, 1.2716877220309317), Interval(0.5815924026413205, 2.0685087816424748)), IntervalBox(Interval(-0.4904030726931757, 1.1367758269608725), Interval(0.6143125557211194, 2.1339953852540083)), IntervalBox(Interval(-0.6746991836709095, 0.9862962523597743), Interval(0.6376698009093841, 2.16841917634107)), IntervalBox(Interval(-0.8489893078141593, 0.8223008571033428), Interval(0.6515485800708997, 2.1716809830068002)), IntervalBox(Interval(-1.011896719495635, 0.6475967534984272), Interval(0.6441490076310843, 2.155603454940034)), IntervalBox(Interval(-1.161217850316411, 0.4641512653122344), Interval(0.6187211193188206, 2.117206292863929))  …  IntervalBox(Interval(-0.9533591676805937, 0.711702189615929), Interval(-2.1716544263283994, -0.6413266567118854)), IntervalBox(Interval(-0.7868246164777075, 0.883656699991501), Interval(-2.168463767808313, -0.6532323079305159)), IntervalBox(Interval(-0.6102763119598557, 1.044058231400197), Interval(-2.150178274188204, -0.6396505655678065)), IntervalBox(Interval(-0.42518797333581615, 1.1902122320984956), Interval(-2.105412265604927, -0.6122883769629845)), IntervalBox(Interval(-0.2335222764051797, 1.3199250691994902), Interval(-2.0301580960456236, -0.575721463075981)), IntervalBox(Interval(-0.037558492829430884, 1.4313284132547115), Interval(-1.9249632239527714, -0.5302075431133536)), IntervalBox(Interval(0.16037205804707041, 1.522605998716889), Interval(-1.7905429226651257, -0.4760525835734581)), IntervalBox(Interval(0.3578889737693353, 1.5919717789617323), Interval(-1.6277554663602758, -0.41359673141130554)), IntervalBox(Interval(0.44845369121572926, 1.7405694941611438), Interval(-1.5418549078035593, -0.24052902668407902)), IntervalBox(Interval(0.5057199106609931, 1.887395215929443), Interval(-1.4585581763573925, -0.0390455399505054))],:xTM1v =&gt; TaylorModels.TaylorModel1{TaylorN{Float64},Float64}[  1.0 + 0.5 x₁ + Interval(0.0, 0.0)   1.0 + 0.5 x₁ + ( 1.0 + 0.5 x₂) t + ( - 0.5 - 0.25 x₁) t² + ( - 0.16666666666666666 - 0.08333333333333333 x₂) t³ + ( 0.041666666666666664 + 0.020833333333333332 x₁) t⁴ + ( 0.008333333333333333 + 0.004166666666666667 x₂) t⁵ + ( - 0.001388888888888889 - 0.0006944444444444445 x₁) t⁶ + ( - 0.0001984126984126984 - 9.92063492063492e-5 x₂) t⁷ + ( 2.48015873015873e-5 + 1.240079365079365e-5 x₁) t⁸ + Interval(-1.0003723822589092e-10, 1.0e-10) …   1.0384350195570526 + 0.019601891685451726 x₁ + 0.49961561809286603 x₂ + ( - 0.9600274528142534 - 0.49961561809286603 x₁ + 0.019601891685451726 x₂) t + ( - 0.5192175097785263 - 0.009800945842725863 x₁ - 0.24980780904643302 x₂) t² + ( 0.16000457546904223 + 0.08326926968214433 x₁ - 0.0032669819475752877 x₂) t³ + ( 0.04326812581487719 + 0.0008167454868938219 x₁ + 0.020817317420536083 x₂) t⁴ + ( - 0.008000228773452111 - 0.004163463484107217 x₁ + 0.0001633490973787644 x₂) t⁵ + ( - 0.0014422708604959064 - 2.72248495631274e-5 x₁ - 0.0006939105806845362 x₂) t⁶ + ( 0.00019048163746314552 + 9.913008295493374e-5 x₁ - 3.889264223303914e-6 x₂) t⁷ + ( 2.5754836794569757e-5 + 4.861580279129893e-7 x₁ + 1.2391260369366718e-5 x₂) t⁸ + Interval(-1.3334935899644755e-10, 1.333717918275767e-10)   1.1502841914805115 + 0.08189437824776766 x₁ + 0.4932477174923115 x₂ + ( - 0.8227066784884449 - 0.4932477174923115 x₁ + 0.08189437824776766 x₂) t + ( - 0.5751420957402558 - 0.04094718912388383 x₁ - 0.24662385874615575 x₂) t² + ( 0.13711777974807415 + 0.08220795291538525 x₁ - 0.01364906304129461 x₂) t³ + ( 0.04792850797835465 + 0.0034122657603236524 x₁ + 0.020551988228846314 x₂) t⁴ + ( - 0.0068558889874037075 - 0.004110397645769263 x₁ + 0.0006824531520647305 x₂) t⁵ + ( - 0.0015976169326118216 - 0.00011374219201078841 x₁ - 0.0006850662742948771 x₂) t⁶ + ( 0.00016323545208104064 + 9.786661061355388e-5 x₁ - 1.624888457296977e-5 x₂) t⁷ + ( 2.852887379663967e-5 + 2.0311105716212214e-6 x₁ + 1.2233326326694234e-5 x₂) t⁸ + Interval(-1.3283477127792404e-10, 1.3285107200779508e-10);   1.0 + 0.5 x₂ + Interval(0.0, 0.0)   1.0 + 0.5 x₂ + ( - 1.0 - 0.5 x₁) t + ( - 0.5 - 0.25 x₂) t² + ( 0.16666666666666666 + 0.08333333333333333 x₁) t³ + ( 0.041666666666666664 + 0.020833333333333332 x₂) t⁴ + ( - 0.008333333333333333 - 0.004166666666666667 x₁) t⁵ + ( - 0.001388888888888889 - 0.0006944444444444445 x₂) t⁶ + ( 0.0001984126984126984 + 9.92063492063492e-5 x₁) t⁷ + ( 2.48015873015873e-5 + 1.240079365079365e-5 x₂) t⁸ + Interval(-1.0000416677856284e-10, 1.000330714473281e-10) …   - 0.9600274528142534 - 0.49961561809286603 x₁ + 0.019601891685451726 x₂ + ( - 1.0384350195570526 - 0.019601891685451726 x₁ - 0.49961561809286603 x₂) t + ( 0.4800137264071267 + 0.24980780904643302 x₁ - 0.009800945842725863 x₂) t² + ( 0.17307250325950876 + 0.0032669819475752877 x₁ + 0.08326926968214433 x₂) t³ + ( - 0.04000114386726056 - 0.020817317420536083 x₁ + 0.0008167454868938219 x₂) t⁴ + ( - 0.008653625162975439 - 0.0001633490973787644 x₁ - 0.004163463484107217 x₂) t⁵ + ( 0.0013333714622420186 + 0.0006939105806845362 x₁ - 2.72248495631274e-5 x₂) t⁶ + ( 0.00020603869435655806 + 3.889264223303914e-6 x₁ + 9.913008295493374e-5 x₂) t⁷ + ( - 2.381020468289319e-5 - 1.2391260369366718e-5 x₁ + 4.861580279129893e-7 x₂) t⁸ + Interval(-1.3334168070514422e-10, 1.3338140425822784e-10)   - 0.8227066784884449 - 0.4932477174923115 x₁ + 0.08189437824776766 x₂ + ( - 1.1502841914805115 - 0.08189437824776766 x₁ - 0.4932477174923115 x₂) t + ( 0.41135333924422246 + 0.24662385874615575 x₁ - 0.04094718912388383 x₂) t² + ( 0.1917140319134186 + 0.01364906304129461 x₁ + 0.08220795291538525 x₂) t³ + ( - 0.03427944493701854 - 0.020551988228846314 x₁ + 0.0034122657603236524 x₂) t⁴ + ( - 0.00958570159567093 - 0.0006824531520647305 x₁ - 0.004110397645769263 x₂) t⁵ + ( 0.0011426481645672845 + 0.0006850662742948771 x₁ - 0.00011374219201078841 x₂) t⁶ + ( 0.00022823099037311737 + 1.624888457296977e-5 x₁ + 9.786661061355388e-5 x₂) t⁷ + ( - 2.040443151013008e-5 - 1.2233326326694234e-5 x₁ + 2.0311105716212214e-6 x₂) t⁸ + Interval(-1.3282695161064205e-10, 1.3286357995985247e-10)],:tv =&gt; [5.0, 5.0, 4.874006767182156, 4.750001037383302, 4.627483643632559, 4.506063504058118, 4.385415959101219, 4.265257423148195, 4.145328285573617, 4.025379995659867  …  1.2188961554679636, 1.098805931942353, 0.9788930825553581, 0.8589099316290685, 0.738606495375688, 0.617719201115849, 0.4959575132930827, 0.37298595345399527, 0.2483971870034911, 0.1230809585330935])), TMJets21b{Float64,ZonotopeEnclosure}
+  orderQ: Int64 2
+  orderT: Int64 8
+  abstol: Float64 1.0e-10
+  maxsteps: Int64 2000
+  absorb: Bool false
+  adaptive: Bool true
+  minabstol: Float64 1.0e-50
+  validatesteps: Int64 30
+  ε: Float64 1.0e-10
+  δ: Float64 1.0e-6
+  absorb_steps: Int64 3
+  disjointness: ZonotopeEnclosure ZonotopeEnclosure()
+, Dict{Symbol,Any}())</pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../parametric/">« Parametric reachability</a><a class="docs-footer-nextpage" href="../benchmarks/">Benchmarks »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Tuesday 8 June 2021 22:43">Tuesday 8 June 2021</span>. Using Julia version 1.5.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

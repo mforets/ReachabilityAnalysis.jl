@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Electromechanic break · ReachabilityAnalysis.jl</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/juliareach-light.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="ReachabilityAnalysis.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit">ReachabilityAnalysis.jl</span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><input class="collapse-toggle" id="menuitem-2" type="checkbox"/><label class="tocitem" for="menuitem-2"><span class="docs-label">Manual</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../man/basics/">Basics</a></li><li><a class="tocitem" href="../../man/linear/">Linear ODEs</a></li><li><a class="tocitem" href="../../man/nonlinear/">Nonlinear ODEs</a></li><li><a class="tocitem" href="../../man/hybrid/">Hybrid systems</a></li><li><a class="tocitem" href="../../man/clocked/">Clocked systems</a></li><li><a class="tocitem" href="../../man/structure/">Exploiting structure</a></li><li><a class="tocitem" href="../../man/parametric/">Parametric reachability</a></li><li><a class="tocitem" href="../../man/backwards/">Backwards reachability</a></li><li><a class="tocitem" href="../../man/benchmarks/">Benchmarks</a></li><li><a class="tocitem" href="../../man/library/">Model library</a></li><li><a class="tocitem" href="../../man/faq/">Frequently Asked Questions</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3" type="checkbox"/><label class="tocitem" for="menuitem-3"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../man/examples_overview/">Overview</a></li><li><a class="tocitem" href="../OpAmp/">Operational amplifier</a></li><li><a class="tocitem" href="../SquareWaveOscillator/">Square wave oscillator</a></li><li><a class="tocitem" href="../VanDerPol/">Van der Pol oscillator</a></li><li><a class="tocitem" href="../DuffingOscillator/">Duffing oscillator</a></li><li><a class="tocitem" href="../TransmissionLine/">Transmision line</a></li><li><a class="tocitem" href="../LaubLoomis/">Laub-Loomis</a></li><li><a class="tocitem" href="../Building/">Building</a></li><li><a class="tocitem" href="../ProductionDestruction/">Production-Destruction</a></li><li><a class="tocitem" href="../LotkaVolterra/">Lotka-Volterra</a></li><li><a class="tocitem" href="../Brusselator/">Brusselator</a></li><li><a class="tocitem" href="../ISS/">Structural Model</a></li><li><a class="tocitem" href="../Lorenz/">Lorenz system</a></li><li><a class="tocitem" href="../Platoon/">Platoon</a></li><li><a class="tocitem" href="../Quadrotor/">Quadrotor</a></li><li><a class="tocitem" href="../SEIR/">SEIR model</a></li><li><a class="tocitem" href="../Spacecraft/">Spacecraft</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox"/><label class="tocitem" for="menuitem-4"><span class="docs-label">Algorithms</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../lib/algorithms/ASB07/">ASB07</a></li><li><a class="tocitem" href="../../lib/algorithms/BFFPSV18/">BFFPSV18</a></li><li><a class="tocitem" href="../../lib/algorithms/BOX/">BOX</a></li><li><a class="tocitem" href="../../lib/algorithms/CARLIN/">CARLIN</a></li><li><a class="tocitem" href="../../lib/algorithms/GLGM06/">GLGM06</a></li><li><a class="tocitem" href="../../lib/algorithms/INT/">INT</a></li><li><a class="tocitem" href="../../lib/algorithms/LGG09/">LGG09</a></li><li><a class="tocitem" href="../../lib/algorithms/ORBIT/">ORBIT</a></li><li><a class="tocitem" href="../../lib/algorithms/QINT/">QINT</a></li><li><a class="tocitem" href="../../lib/algorithms/TMJets/">TMJets</a></li><li><a class="tocitem" href="../../lib/algorithms/VREP/">VREP</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox"/><label class="tocitem" for="menuitem-5"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../lib/reachsets/">Reach-sets</a></li><li><a class="tocitem" href="../../lib/flowpipes/">Flowpipes</a></li><li><a class="tocitem" href="../../lib/solutions/">Solutions</a></li><li><a class="tocitem" href="../../lib/systems/">Systems</a></li><li><a class="tocitem" href="../../lib/discretize/">Discretization</a></li><li><a class="tocitem" href="../../lib/projections/">Projections</a></li><li><a class="tocitem" href="../../lib/clustering/">Clustering</a></li><li><a class="tocitem" href="../../lib/operations/">Further set operations</a></li><li><a class="tocitem" href="../../lib/distributed/">Distributed computations</a></li><li><a class="tocitem" href="../../lib/internals/">Internal functions and macros</a></li></ul></li><li><a class="tocitem" href="../../references/">References</a></li><li><a class="tocitem" href="../../about/">About</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Electromechanic break</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Electromechanic break</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaReach/ReachabilityAnalysis.jl/blob/master/examples/EMBrake/EMBrake.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Electromechanic-break"><a class="docs-heading-anchor" href="#Electromechanic-break">Electromechanic break</a><a id="Electromechanic-break-1"></a><a class="docs-heading-anchor-permalink" href="#Electromechanic-break" title="Permalink"></a></h1><p><a href="https://nbviewer.jupyter.org/github/JuliaReach/ReachabilityAnalysis.jl/blob/gh-pages/previews/PR524/models/EMBrake.ipynb"><img src="https://img.shields.io/badge/show-nbviewer-579ACA.svg" alt/></a></p><div class="admonition is-info"><header class="admonition-header">Overview</header><div class="admonition-body"><p>System type: Affine system<br/>State dimension: 48<br/>Application domain: Mechanical Engineering</p></div></div><h2 id="Model-description"><a class="docs-heading-anchor" href="#Model-description">Model description</a><a id="Model-description-1"></a><a class="docs-heading-anchor-permalink" href="#Model-description" title="Permalink"></a></h2><p>The system is described by the linear differential equations:</p><p class="math-container">\[  \begin{array}{lcl}
+  \dot{x}(t) &amp;=&amp; Ax(t) + Bu(t),\qquad u(t) \in \mathcal{U} \\
+  y(t) &amp;=&amp; C x(t)
+  \end{array}\]</p><p>There are two versions of this benchmark:</p><ul><li><p><em>(time-varying inputs):</em> The inputs can change arbitrarily over time: <span>$\forall t: u(t)\in \mathcal{U}$</span>.</p></li><li><p><em>(constant inputs):</em> The inputs are uncertain only in their initial value, and  constant over time: <span>$u(0)\in \mathcal{U}$</span>, <span>$\dot u (t)= 0$</span>.</p></li></ul><pre><code class="language-julia">using ReachabilityAnalysis, SparseArrays, JLD2</code></pre><p>adapt default LazySets tolerances</p><pre><code class="language-julia">set_rtol(Float64, 1e-12)
+set_ztol(Float64, 1e-13)
+
+# Fixed parameters</code></pre><p>The model without parameter variation is defined below.</p><pre><code class="language-julia">function embrake_no_pv(; Tsample=1.E-4, ζ=1e-6, x0=0.05)
+    # model&#39;s constants
+    L = 1.e-3
+    KP = 10000.
+    KI = 1000.
+    R = 0.5
+    K = 0.02
+    drot = 0.1
+    i = 113.1167
+
+    # state variables: [I, x, xe, xc]
+    A = Matrix([-(R+K^2/drot)/L 0      KP/L  KI/L;
+                          K/i/drot      0      0      0;
+                          0             0      0      0;
+                          0             0      0      0])
+
+    EMbrake = @system(x&#39; = Ax)
+
+    # initial conditions
+    I₀  = Singleton([0.0])
+    x₀  = Singleton([0.0])
+    xe₀ = Singleton([0.0])
+    xc₀ = Singleton([0.0])
+    X₀ = I₀ × x₀ × xe₀ × xc₀
+
+    # reset map
+    Ar = sparse([1, 2, 3, 4, 4], [1, 2, 2, 2, 4], [1., 1., -1., -Tsample, 1.], 4, 4)
+    br = sparsevec([3, 4], [x0, Tsample*x0], 4)
+    reset_map(X) = Ar * X + br
+
+    # hybrid system with clocked linear dynamics
+    ha = HACLD1(EMbrake, reset_map, Tsample, ζ)
+    return IVP(ha, X₀)
+end
+
+# Parameter variation</code></pre><p>The model with parameter variation described below consists of changing only one coefficient, which corresponds to the Flow* settings in <sup class="footnote-reference"><a id="citeref-SO15" href="#footnote-SO15">[SO15]</a></sup>.</p><pre><code class="language-julia">function embrake_pv_1(; Tsample=1.E-4, ζ=1e-6, Δ=3.0, x0=0.05)
+    # model&#39;s constants
+    L = 1.e-3
+    KP = 10000.
+    KI = 1000.
+    R = 0.5
+    K = 0.02
+    drot = 0.1
+    i = 113.1167
+    p = 504. + (-Δ .. Δ)
+
+    # state variables: [I, x, xe, xc]
+    A = IntervalMatrix([-p            0      KP/L   KI/L;
+                        K/i/drot      0      0      0;
+                        0             0      0      0;
+                        0             0      0      0])
+
+    EMbrake = @system(x&#39; = Ax)
+
+    # initial conditions
+    I₀  = Singleton([0.0])
+    x₀  = Singleton([0.0])
+    xe₀ = Singleton([0.0])
+    xc₀ = Singleton([0.0])
+    X₀ = I₀ × x₀ × xe₀ × xc₀
+
+    # reset map
+    Ar = sparse([1, 2, 3, 4, 4], [1, 2, 2, 2, 4], [1., 1., -1., -Tsample, 1.], 4, 4)
+    br = sparsevec([3, 4], [x0, Tsample*x0], 4)
+    reset_map(X) = Ar * X + br
+
+    # hybrid system with clocked linear dynamics
+    ha = HACLD1(EMbrake, reset_map, Tsample, ζ)
+    return IVP(ha, X₀)
+end
+
+# Extended parameter variation</code></pre><p>In the following model, considered in [...], we vary all constants by χ% with respect to their nominal values. The variation percentage defaults to 5%.</p><pre><code class="language-julia">function embrake_pv_2(; Tsample=1.E-4, ζ=1e-6, x0=0.05, χ=5.0)
+    # model&#39;s constants
+    Δ = -χ/100 .. χ/100
+    L = 1.e-3 * (1 + Δ)
+    KP = 10000. * (1 + Δ)
+    KI = 1000. * (1 + Δ)
+    R = 0.5 * (1 + Δ)
+    K = 0.02 * (1 + Δ)
+    drot = 0.1 * (1 + Δ)
+    i = 113.1167 * (1 + Δ)
+
+    # state variables: [I, x, xe, xc]
+    A = IntervalMatrix([-(R+K^2/drot)/L 0      KP/L  KI/L;
+                          K/i/drot      0      0      0;
+                          0             0      0      0;
+                          0             0      0      0])
+
+    EMbrake = @system(x&#39; = Ax)
+
+    # initial conditions
+    I₀  = Singleton([0.0])
+    x₀  = Singleton([0.0])
+    xe₀ = Singleton([0.0])
+    xc₀ = Singleton([0.0])
+    X₀ = I₀ × x₀ × xe₀ × xc₀
+
+    # reset map
+    Ar = sparse([1, 2, 3, 4, 4], [1, 2, 2, 2, 4], [1., 1., -1., -Tsample, 1.], 4, 4)
+    br = sparsevec([3, 4], [x0, Tsample*x0], 4)
+    reset_map(X) = Ar * X + br
+
+    # hybrid system with clocked linear dynamics
+    ha = HACLD1(EMbrake, reset_map, Tsample, ζ)
+    return IVP(ha, X₀)
+end</code></pre><pre class="documenter-example-output">embrake_pv_2 (generic function with 1 method)</pre><h2 id="References"><a class="docs-heading-anchor" href="#References">References</a><a id="References-1"></a><a class="docs-heading-anchor-permalink" href="#References" title="Permalink"></a></h2><p>[]:</p><section class="footnotes is-size-7"><ul><li class="footnote" id="footnote-SO15"><a class="tag is-link" href="#citeref-SO15">SO15</a>Strathmann, Thomas, and Jens Oehlerking. <em>Verifying Properties of an Electro-Mechanical Braking System.</em> ARCH CPSWeek. 2015.</li></ul></section></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 30 June 2021 02:13">Wednesday 30 June 2021</span>. Using Julia version 1.5.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
